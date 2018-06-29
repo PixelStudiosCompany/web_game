@@ -1,5 +1,12 @@
 var socket = io();
-
+var width = 800;
+var height = 600;
+var bombw = 40;
+var bombh=40;
+var backimg = new Image(width/20,height/20);
+  backimg.src="/static/sand.jpg";
+var bomber_img= new  Image(bombw,bombh);
+bomber_img.src = "/static/bomber.png";
 var movement = {
   up: false,
   down: false,
@@ -45,18 +52,32 @@ setInterval(function() {
 }, 1000 / 60);
 
 var canvas = document.getElementById('canvas');
-canvas.width = 800;
-canvas.height = 600;
+canvas.width = width;
+canvas.height = height;
 var context = canvas.getContext('2d');
+var cFont = context.font;
 socket.on('state', function(players) {
   console.log(players);
-  context.clearRect(0, 0, 800, 600);
+  context.clearRect(0, 0, width, height);
+  
+  var ptrn= context.createPattern(backimg,'repeat');
+  context.fillStyle=ptrn;
+  context.fillRect(0,0,width,height);
+  //context.drawImage(backimg,0,0,width,height);
+ 
   context.fillStyle = 'green';
   for (var id in players) {
     var player = players[id];
-    context.beginPath();
-    context.arc(player.x, player.y+10, 10, 0, 2 * Math.PI);
+    //context.beginPath();
+    //context.arc(player.x, player.y+10, 10, 0, 2 * Math.PI);
+    //context.fill();
+	
+	context.drawImage(bomber_img,player.x,player.y,bombw,bombh);
+	var fontArgs = context.font.split(' ');
+    var newSize = '20px';
+    context.font = newSize + ' ' + fontArgs[fontArgs.length - 1];
+	context.fillStyle='black';
 	context.fillText(player.name,player.x, player.y);
-    context.fill();
   }
+
 });

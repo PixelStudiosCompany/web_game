@@ -6,7 +6,10 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-
+var width = 800;
+var height = 600;
+var bombw = 40;
+var bombh=40;
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
 
@@ -30,16 +33,16 @@ io.on('connection', function(socket) {
   });
   socket.on('movement', function(data) {
     var player = players[socket.id] || {};
-    if (data.left) {
+    if (data.left && player.x>0) {
       player.x -= 5;
     }
-    if (data.up) {
+    if (data.up && player.y>0) {
       player.y -= 5;
     }
-    if (data.right) {
+    if (data.right && player.x+bombw<width) {
       player.x += 5;
     }
-    if (data.down) {
+    if (data.down && player.y+bombh<height) {
       player.y += 5;
     }
   });
