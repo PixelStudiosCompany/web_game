@@ -7,6 +7,8 @@ var backimg = new Image(width/20,height/20);
   backimg.src="/static/sand.jpg";
 var bomber_img= new  Image(bombw,bombh);
 bomber_img.src = "/static/bomber.png";
+var wall_img = new Image(500,500);
+wall_img.src="/static/wall.jpg";
 var movement = {
   up: false,
   down: false,
@@ -56,7 +58,7 @@ canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
 var cFont = context.font;
-socket.on('state', function(players) {
+socket.on('state', function(players,map) {
   console.log(players);
   context.clearRect(0, 0, width, height);
   
@@ -78,6 +80,13 @@ socket.on('state', function(players) {
     context.font = newSize + ' ' + fontArgs[fontArgs.length - 1];
 	context.fillStyle='black';
 	context.fillText(player.name,player.x, player.y);
+  }
+  var w = width/map.length;
+  var h=height/map[0].length;
+  for (var i=0;i<map.length-1;i++){
+	  for (var j=0;j<map[0].length;j++){
+		 if (map[i][j]=='0') context.drawImage(wall_img,i*w,j*h,w,h);
+	  }
   }
 
 });
