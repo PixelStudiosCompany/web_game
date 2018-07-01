@@ -12,6 +12,7 @@ var bombw = 40;
 var bombh=40;
 var mapx = 10;
 var mapy = 10;
+//var chats="";
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
 
@@ -85,33 +86,42 @@ io.on('connection', function(socket) {
       y: 300,
 	  ox: 300,
 	  oy: 300,
-	  name: a
+	  name: a,
+	  message: ""
     };
   });
   socket.on('movement', function(data) {
-	   var w = width/map.length;
-  var h=height/map[0].length;
+	var w = width/map.length;
+    var h=height/map[0].length;
     var player = players[socket.id] || {};
     if (data.left && player.x>0) {
       player.ox=player.x;
 	  player.x -= 5;
     }
     if (data.up && player.y>0) {
-		player.oy = player.y;
+	  player.oy = player.y;
       player.y -= 5;
     }
     if (data.right && player.x+bombw<width) {
-		player.ox=player.x;
+	  player.ox=player.x;
       player.x += 5;
     }
     if (data.down && player.y+bombh<height) {
-		player.oy=player.y;
+	  player.oy=player.y;
       player.y += 5;
     }
 	if (!check_hero(map,player.x,player.y,w,h)){
-	    player.x=player.ox;
-        player.y=player.oy;		
+	  player.x=player.ox;
+      player.y=player.oy;		
 	}
+	
+	//Сообщения
+	
+	if (player.message!=data.txt){
+	  player.message=data.txt;
+	  data.txt="";
+	} 
+	
   });
   
    socket.on('disconnect', function() {
