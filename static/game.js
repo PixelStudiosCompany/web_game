@@ -15,6 +15,28 @@ var movement = {
   left: false,
   right: false
 }
+
+/*function dot_inside(x,y,kx,ky,w,h){
+	var f = false;
+	if (x>kx && x<kx+w && y>ky && y<ky+h){
+		f=true;
+	}
+	return f;
+}
+function check_hero(map,x,y,w,h){
+	var f = true;
+	for (var i=0;i<map.length;i++){
+		for (var j=0;j<map[0].length;j++){
+			if (map[i][j]=='0'){
+				if (dot_inside(x,y,i*w,j*h,w,h) || dot_inside(x+bombw,y,i*w,j*h,w,h) || dot_inside(x,y+bombh,i*w,j*h,w,h) || dot_inside(x+bombw,y+bombh,i*w,j*h,w,h)){
+					f=false;
+				}
+			}
+		}
+	}
+	return f;
+}*/
+
 document.addEventListener('keydown', function(event) {
   switch (event.keyCode) {
     case 65: // A

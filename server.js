@@ -16,7 +16,30 @@ app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
 
 
+//CHECKING HERO POSITION
 
+function dot_inside(x,y,kx,ky,w,h){
+	var f = false;
+	if (x>kx && x<kx+w && y>ky && y<ky+h){
+		f=true;
+	}
+	return f;
+}
+function check_hero(map,x,y,w,h){
+	var f = true;
+	for (var i=0;i<map.length;i++){
+		for (var j=0;j<map[0].length;j++){
+			if (map[i][j]=='0'){
+				if (dot_inside(x,y,i*w,j*h,w,h) || dot_inside(x+bombw,y,i*w,j*h,w,h) || dot_inside(x,y+bombh,i*w,j*h,w,h) || dot_inside(x+bombw,y+bombh,i*w,j*h,w,h)){
+					f=false;
+				}
+			}
+		}
+	}
+	return f;
+}
+
+//----------------------
 
 //MAP CREATION
 
@@ -40,6 +63,7 @@ for (var i=0;i<mapx;i++){
 	}
 }
 console.log(map);
+
 //-------------
 
 
@@ -65,6 +89,8 @@ io.on('connection', function(socket) {
     };
   });
   socket.on('movement', function(data) {
+	   var w = width/map.length;
+  var h=height/map[0].length;
     var player = players[socket.id] || {};
     if (data.left && player.x>0) {
       player.ox=player.x;
@@ -82,6 +108,10 @@ io.on('connection', function(socket) {
 		player.oy=player.y;
       player.y += 5;
     }
+	if (!check_hero(map,player.x,player.y,w,h)){
+	    player.x=player.ox;
+        player.y=player.oy;		
+	}
   });
   
    socket.on('disconnect', function() {
