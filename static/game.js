@@ -55,6 +55,49 @@ document.addEventListener('keyup', function(event) {
       break;
   }
 });
+
+//Обработка браузрных кнопок
+
+var up = document.getElementById('up');
+up.addEventListener("mousedown",function(event){
+	movement.up = true;
+}
+);
+up.addEventListener("mouseup",function(event){
+	movement.up = false;
+}
+);
+
+var down = document.getElementById('down');
+down.addEventListener("mousedown",function(event){
+	movement.down = true;
+}
+);
+down.addEventListener("mouseup",function(event){
+	movement.down = false;
+}
+);
+
+var left = document.getElementById('left');
+left.addEventListener("mousedown",function(event){
+	movement.left = true;
+}
+);
+left.addEventListener("mouseup",function(event){
+	movement.left = false;
+}
+);
+
+var right = document.getElementById('right');
+right.addEventListener("mousedown",function(event){
+	movement.right = true;
+}
+);
+right.addEventListener("mouseup",function(event){
+	movement.right = false;
+}
+);
+
 var a = prompt("enter your name: ");
 socket.emit('new player',a);
 var date = new Date();
