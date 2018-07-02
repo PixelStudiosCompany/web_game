@@ -94,26 +94,26 @@ io.on('connection', function(socket) {
 	var w = width/map.length;
     var h=height/map[0].length;
     var player = players[socket.id] || {};
-    if (data.left && player.x>0) {
+    if (data.left && player.x>0 && check_hero(map,player.x-5,player.y,w,h)) {
       player.ox=player.x;
 	  player.x -= 5;
     }
-    if (data.up && player.y>0) {
+    if (data.up && player.y>0 && check_hero(map,player.x,player.y-5,w,h)) {
 	  player.oy = player.y;
       player.y -= 5;
     }
-    if (data.right && player.x+bombw<width) {
+    if (data.right && player.x+bombw<width && check_hero(map,player.x+5,player.y,w,h)) {
 	  player.ox=player.x;
       player.x += 5;
     }
-    if (data.down && player.y+bombh<height) {
+    if (data.down && player.y+bombh<height && check_hero(map,player.x,player.y+5,w,h)) {
 	  player.oy=player.y;
       player.y += 5;
     }
-	if (!check_hero(map,player.x,player.y,w,h)){
+	/*if (!check_hero(map,player.x,player.y,w,h)){
 	  player.x=player.ox;
       player.y=player.oy;		
-	}
+	}*/
 	
 	//Сообщения
 	

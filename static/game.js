@@ -98,6 +98,14 @@ right.addEventListener("mouseup",function(event){
 }
 );
 
+var chat = document.getElementById('chat');
+chat.addEventListener("click",function(event){
+	 movement.chat=true;
+	  var n = prompt("enter message");
+	  movement.txt=n; 
+}
+);
+
 var a = prompt("enter your name: ");
 socket.emit('new player',a);
 var date = new Date();
