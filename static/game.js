@@ -59,44 +59,68 @@ document.addEventListener('keyup', function(event) {
 //Обработка браузрных кнопок
 
 var up = document.getElementById('up');
-up.addEventListener("mousedown",function(event){
-	movement.up = true;
+up.style.background='white';
+up.addEventListener("click",function(event){
+	movement.up = !movement.up;
+	if (movement.up) {
+		up.style.background='gray';
+	} else{
+		up.style.background='white';
+	}
 }
 );
-up.addEventListener("mouseup",function(event){
+/*up.addEventListener("mouseup",function(event){
 	movement.up = false;
 }
-);
+);*/
 
 var down = document.getElementById('down');
-down.addEventListener("mousedown",function(event){
-	movement.down = true;
+down.style.background='white';
+down.addEventListener("click",function(event){
+	movement.down = !movement.down;
+	if (movement.down) {
+	    down.style.background='gray';
+	} else{
+		down.style.background='white';
+	}
 }
 );
-down.addEventListener("mouseup",function(event){
+/*down.addEventListener("mouseup",function(event){
 	movement.down = false;
 }
-);
+);*/
 
 var left = document.getElementById('left');
-left.addEventListener("mousedown",function(event){
-	movement.left = true;
+left.style.background='white';
+left.addEventListener("click",function(event){
+	movement.left = !movement.left;
+	if (movement.left) {
+		left.style.background='gray';
+	} else{
+		left.style.background='white';
+	}
 }
 );
-left.addEventListener("mouseup",function(event){
+/*left.addEventListener("mouseup",function(event){
 	movement.left = false;
 }
-);
+);*/
 
 var right = document.getElementById('right');
-right.addEventListener("mousedown",function(event){
-	movement.right = true;
+right.style.background='white';
+right.addEventListener("click",function(event){
+	movement.right = !movement.right;
+	if (movement.right) {
+		right.style.background='gray';
+	} else{
+		right.style.background='white';
+	}
 }
 );
-right.addEventListener("mouseup",function(event){
+/*right.addEventListener("mouseup",function(event){
 	movement.right = false;
 }
-);
+);*/
 
 var chat = document.getElementById('chat');
 chat.addEventListener("click",function(event){
